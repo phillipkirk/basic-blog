@@ -12,7 +12,7 @@
         <link href="<?php $BASE_URL; ?>/static/css/style.css" rel="stylesheet">
         <script src="https://cdn.tiny.cloud/1/0s2ce8pncoz89cjub19qhzublx61b2oqvq9h4gz9lc1roa4t/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
     </head>
-    <body>
+    <body <?php if ($_SESSION['mode'] == "dark") { echo "class='bg-secondary text-light'"; } ?>>
         
     <?php
         if (isset($_SESSION['info'])) {
@@ -32,7 +32,7 @@
             echo "</div>";
         }
         ?>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg <?php if ($_SESSION['mode'] == "light") { echo "navbar-light bg-light"; } else { echo "navbar-dark bg-dark text-light"; }?>">
             <div class="container-fluid">
                 <a class="navbar-brand" href="../blog"><?php echo $env['SITE_NAME']; ?></a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -74,6 +74,14 @@
                                 <li><a class='dropdown-item' href='<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?lang=it'><?php echo $loc['italian']; ?></a></li>
                             </ul>
                         </li>
+                        <span style='margin-top: 10px;'>&#x1f4a1;&nbsp;&nbsp;</span>
+                        <li class="form-check form-switch">
+                            <form id='mode' action='<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>' method='GET'>
+                                <input class="form-check-input" onclick="formSubmit('mode')" type="checkbox" id="flexSwitchCheckDefault" style="margin-top: 15px;" <?php if ($_SESSION['mode'] == "dark") { echo "checked"; } ?>>
+                                <input type='hidden' name='mode_switch' value='clicked'>
+                            </form>
+                        </li>
+                        <span style='margin-top:10px'>&#x263E;</span>
                     </ul>
                     <?php
                         if ($env['SEARCH'] == 'on') {
@@ -87,4 +95,4 @@
             </div>
         </nav>
         <br>
-        <div class='card' style="width: 90%; margin-left: 5%;">
+        <div class='card <?php if ($_SESSION['mode'] == "dark") { echo "bg-dark text-light"; }?>' style="width: 90%; margin-left: 5%;">

@@ -30,6 +30,18 @@
     }
     include $_SERVER['DOCUMENT_ROOT'] . "/lib/lang/" . $_SESSION['lang'] . ".php";
 
+    if (!isset($_SESSION['mode'])) {
+        $_SESSION['mode'] = $env['MODE_DEFAULT'];
+    }
+    if (isset($_GET['mode_switch'])) {
+        if ($_SESSION['mode'] == "light") {
+            $_SESSION['mode'] = "dark";
+        } else {
+            $_SESSION['mode'] = 'light';
+        }
+    }
+    
+
     // Regenerate the session ID
     session_regenerate_id();
 
@@ -44,12 +56,3 @@
     if($link === false){
         die("ERROR: Could not connect. " . mysqli_connect_error());
     }
-
-
-    // Define CAPTCHA state
-    if ($env['CAPTCHA'] == "true") {
-        $CAPTCHA = 'on';
-    } else {
-        $CAPTCHA = '0ff';
-    }
-    ?>

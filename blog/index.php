@@ -5,7 +5,7 @@
             </div>
             <?php include $_SERVER['DOCUMENT_ROOT'] . "/lib/templates/welcome.html"; ?>
         <br>
-        <table class="table table-light table-striped" style="width: 90%; margin-left: 5%;">
+        <table class="table <?php if ($_SESSION['mode'] == "light") { echo "table-light"; } else { echo "table-dark"; } ?> table-striped" style="width: 90%; margin-left: 5%;">
             <thead>
                 <tr>
                     <?php

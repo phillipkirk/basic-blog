@@ -116,19 +116,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     mysqli_close($link);
 }
 ?>
- 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Sign Up</title>
-    <link rel="stylesheet" href="<?php echo $BASE_URL; ?>/staff/auth/style.css">
-    <style>
-        body{ font: 14px sans-serif; }
-    </style>
-</head>
-<body>
-    <div class="card">
+    <div class="card <?php if ($_SESSION['mode'] == "dark") { echo "bg-dark text-light"; } ?>">
         <div class="card-header">
             <h2>Create New User</h2>
         </div>
@@ -159,9 +147,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 <br>
                 <div class="form-group">
                     <center>
-                        <input type="submit" class="btn btn-outline-primary" value="Submit">
-                        <input type="reset" class="btn btn-outline-secondary ml-2" value="Reset">
-                        <a class="btn btn-outline-secondary ml-2" href="<?php echo $BASE_URL; ?>">Cancel</a>
+                        <input type="submit" class="btn btn-primary" value="Submit">
+                        <input type="reset" class="btn btn-secondary ml-2" value="Reset">
+                        <a class="btn-link ml-2" href="<?php echo $BASE_URL; ?>">Cancel</a>
                     </center>
                 </div>
             </form>

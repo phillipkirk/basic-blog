@@ -95,7 +95,7 @@
         mysqli_close($link);
     }
     ?>
-    <div class="card">
+    <div class="card <?php if ($_SESSION['mode'] == "dark") { echo "bg-dark text-light"; } ?>">
         <div class="card-header">
             <h2>Reset Password</h2>
         </div>
@@ -125,7 +125,7 @@
                 </div>
                 <br>
                 <div class="form-group">
-                    <input type="submit" class="btn btn-outline-primary" value="Submit">
+                    <input type="submit" class="btn btn-primary" value="Submit">
                     <a class="btn btn-link ml-2" href="<?php echo $BASE_URL; ?>">Cancel</a>
                 </div>
             </form>

@@ -3,9 +3,9 @@
     require_once $_SERVER['DOCUMENT_ROOT'] . "/lib/templates/GLOBAL_HEADER.php";
 
     // Load CAPTCHA files if enabled
-    if ($env['CAPTCHA'] == 'true') {
-        require_once $_SERVER['DOCUMENT_ROOT'] . "lib/CAPTCHA/funct/generateCaptcha.php";
-        require_once $_SERVER['DOCUMENT_ROOT'] . "lib/CAPTCHA/funct/generateRandomString.php";
+    if ($env['CAPTCHA'] == 'on') {
+        require_once $_SERVER['DOCUMENT_ROOT'] . "/lib/CAPTCHA/funct/generateCaptcha.php";
+        require_once $_SERVER['DOCUMENT_ROOT'] . "/lib/CAPTCHA/funct/generateRandomString.php";
     }
 
     // Check if the user is already logged in, if yes then redirect him to welcome page
@@ -20,7 +20,7 @@
     $username_err = $password_err = $login_err = $captcha_err = "";
 
     if($_SERVER["REQUEST_METHOD"] == "POST") {
-        if ($env['CAPTCHA'] === 'true') {
+        if ($env['CAPTCHA'] === 'on') {
             $CODE_H = $_POST['code'];
             $USER_CODE = $_POST['code_send'];
             $TEST_CODE = hash('adler32', $USER_CODE);
@@ -145,7 +145,7 @@
     }
     ?>
     <div class='content'>
-        <div class="card">
+        <div class="card <?php if ($_SESSION['mode'] == "dark") { echo "bg-dark text-light"; } ?>">
             <div class="card-header">
                 <h2>Log In</h2>
             </div>
@@ -175,7 +175,7 @@
                     </div>
                     <div class="form-group">
                         <?php
-                            if ($env['CAPTCHA'] === 'true') {
+                            if ($env['CAPTCHA'] === 'on') {
                                 $SECRET_A = generateRandomString(32);
                                 $SECRET_B = generateRandomString(32);
                                 $DATE = date("D M j G:i:s T Y");
@@ -190,13 +190,14 @@
                                 echo "<br><small>If you still have issues please contat the site administrator.</small>";
                                 echo "<br><br><label for='code'>Please enter the code above:</label>";
                                 echo "<input type='hidden' id='code' name='code' value='" . $CODE_H . "'>";
-                                echo "<br><input type='text' id='code_send' name='code_send' required>";
+                                echo "<br><input type='text' class='form-control' id='code_send' name='code_send' required>";
                                 echo "<span class='invalid-feedback'>$captcha_err</span>";
                             }
                             ?>
                     </div>
                     <div class="form-group">
-                        <input type="submit" class="btn btn-outline-primary form-control" value="Login">
+                        <br>
+                        <input type="submit" class="btn btn-primary form-control" value="Login">
                     </div>
                     <hr>
                     <?php
