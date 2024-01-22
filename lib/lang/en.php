@@ -9,6 +9,22 @@
     $loc["view_post"] = "View Post";
     $loc["welcome"] = "Welcome!";
 
+    // Login
+    $loc["captcha_err"] = "Incorrect CAPTCHA input.";
+    $loc["captcha_message"] = "If you cannot see an 8 digit code in the box above please refresh the page or click <a href='" . htmlspecialchars($_SERVER['PHP_SELF']) . "'><b>here</b></a>.";
+    $loc["captcha_message"] = $loc['captcha_message'] . "<br>If you still have issues please contat the site administrator.";
+    $loc["captcha_label"] = "Please enter the code above:";
+    $loc["login"] = "Log In";
+    $loc["login_err_a"] = "Too many login attempts. Please try again later.";
+    $loc["login_err_b"] = "Invalid username or password.";
+    $loc["login_message"] = "Please fill in your credentials to login.";
+    $loc["password"] = "Password:";
+    $loc["password_err"] = "Please enter your password.";
+    $loc["registration_closed"] = "If you require access to this site please contact the administrator.";
+    $loc["registration_open"] = "Register Here";
+    $loc["username_2"] = "Username:";
+    $loc["username_err"] = "Please enter username.";
+
     // Logs
     $loc["access_log"] = "Access Log";
     $loc["clear_log"] = "Clear Log";

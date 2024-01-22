@@ -9,6 +9,22 @@
     $loc["view_post"] = "";
     $loc["welcome"] = "";
 
+    // Login
+    $loc["captcha_err"] = "";
+    $loc["captcha_message"] = "";
+    $loc["captcha_label"] = "";
+    $loc["login"] = "";
+    $loc["login_err_a"] = "";
+    $loc["login_err_b"] = "";
+    $loc["login_message"] = "";
+    $loc["password"] = "";
+    $loc["password_err"] = "";
+    $loc["registration_closed"] = "";
+    $loc["registration_open"] = "";
+    $loc["username_2"] = "";
+    $loc["username_err"] = "";
+
+
     // Logs
     $loc["access_log"] = "";
     $loc["clear_log"] = "";

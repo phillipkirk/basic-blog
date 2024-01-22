@@ -31,14 +31,14 @@
             // Processing form data when form is submitted
             // Check if username is empty
             if(empty(trim($_POST["username"]))){
-                $username_err = "Please enter username.";
+                $username_err = $loc['username_err'];
             } else{
                 $username = trim($_POST["username"]);
             }
             
             // Check if password is empty
             if(empty(trim($_POST["password"]))){
-                $password_err = "Please enter your password.";
+                $password_err = $loc['password_err'];
             } else{
                 $password = trim($_POST["password"]);
             }
@@ -71,7 +71,7 @@
                         mysqli_stmt_close($stmt_attempts);
             
                         if ($attempt_count >= MAX_LOGIN_ATTEMPTS) {
-                            $login_err = "Too many login attempts. Please try again later.";
+                            $login_err = $loc['login_err_a'];
                         } else {
                             // Attempt to execute the prepared statement
                             if (mysqli_stmt_execute($stmt)) {
@@ -121,13 +121,13 @@
                                             // Password is not valid, display a generic error message
                                             $sql = "INSERT INTO login_log (username, status) VALUES ('$username', 'FAIL (Password)')";
                                             $link->query($sql);
-                                            $login_err = "Invalid username or password.";
+                                            $login_err = $loc["login_err_b"];
                                         }
                                     }
                                 } else {
                                     // Username doesn't exist, display a generic error message
                                     $sql = "INSERT INTO login_log (username, status) VALUES ('$username', 'FAIL (Invalid Username)')";
-                                    $login_err = "Invalid username or password.";
+                                    $login_err = $loc["login_err_b"];
                                 }
                             } else {
                                 
@@ -140,36 +140,32 @@
             }
             
         } else {
-            $captcha_err = "Incorrect CAPTCHA input.";
+            $captcha_err = $loc['captcha_err'];
         }
     }
     ?>
     <div class='content'>
         <div class="card <?php if ($_SESSION['mode'] == "dark") { echo "bg-dark text-light"; } ?>">
             <div class="card-header">
-                <h2>Log In</h2>
+                <h2><?php echo $loc['login']; ?></h2>
             </div>
             <div class="card-body">
-                <p>Please fill in your credentials to login.</p>
+                <p><?php echo $loc['login_message']; ?></p>
                 <?php 
                     $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
                     ?>
-                <?php 
-                if(!empty($login_err)){
-                    echo '<div class="invalid-feedback">' . $login_err . '</div>';
-                }        
-                ?>
+                <span class="invalid-feedback"><?php echo $login_err; ?></span>
 
                 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                     <input type="hidden" name="csrf_token" value="<?php echo $_SESSION['csrf_token']; ?>">
                     <div class="form-group">
-                        <label>Username:</label>
+                        <label><?php echo $loc['username_2']; ?></label>
                         <input type="text" name="username" class="form-control <?php echo (!empty($username_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $username; ?>">
                         <span class="invalid-feedback"><?php echo $username_err; ?></span>
                     </div>
                     <br>  
                     <div class="form-group">
-                        <label>Password:</label>
+                        <label><?php echo $loc['password']; ?></label>
                         <input type="password" name="password" class="form-control <?php echo (!empty($password_err)) ? 'is-invalid' : ''; ?>">
                         <span class="invalid-feedback"><?php echo $password_err; ?></span>
                     </div>
@@ -186,9 +182,8 @@
                                 echo "<center><br>";
                                 echo generateCaptcha($CODE_S);
                                 echo "<br></center>";
-                                echo "<br><small>If you cannot see an 8 digit code in the box above please refresh the page or click <a href='" . htmlspecialchars($_SERVER['PHP_SELF']) . "'><b>here</b></a>.</small>";
-                                echo "<br><small>If you still have issues please contat the site administrator.</small>";
-                                echo "<br><br><label for='code'>Please enter the code above:</label>";
+                                echo "<br><small>" . $loc['captcha_message'] . "</small>";
+                                echo "<br><br><label for='code'>" . $loc['captcha_label'] . "</label>";
                                 echo "<input type='hidden' id='code' name='code' value='" . $CODE_H . "'>";
                                 echo "<br><input type='text' class='form-control' id='code_send' name='code_send' required>";
                                 echo "<span class='invalid-feedback'>$captcha_err</span>";
@@ -197,14 +192,15 @@
                     </div>
                     <div class="form-group">
                         <br>
-                        <input type="submit" class="btn btn-primary form-control" value="Login">
+                        <input type="submit" class="btn btn-primary" value="<?php echo $loc['login']; ?>">
+                        <a href='<?php echo $BASE_URL; ?>' class="btn btn-secondary">Cancel</a>
                     </div>
                     <hr>
                     <?php
                         if ($env['REGISTRATION_LOCKED'] === 'true') {
-                            echo "<p>If you require access to this site please contact the administrator.</p>";
+                            echo "<p>" . $loc['registration_closed'] . "</p>";
                         } else {
-                            echo "<p><a href='$BASE_URL/staff/auth/register.php'>Register Here</a></p>";
+                            echo "<a class='btn btn-secondary form-control' href='$BASE_URL/staff/auth/register.php'>" . $loc['registration_open'] . "</a>";
                         }
                         ?>
                 </form>

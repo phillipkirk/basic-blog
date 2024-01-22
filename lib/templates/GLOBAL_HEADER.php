@@ -74,14 +74,14 @@
                                 <li><a class='dropdown-item' href='<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>?lang=it'><?php echo $loc['italian']; ?></a></li>
                             </ul>
                         </li>
-                        <span style='margin-top: 10px;'>&#x1f4a1;&nbsp;&nbsp;</span>
+                        <span id='icon' style='margin-top: 10px; float: left;'>&#x1f4a1;</span>
                         <li class="form-check form-switch">
                             <form id='mode' action='<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>' method='GET'>
                                 <input class="form-check-input" onclick="formSubmit('mode')" type="checkbox" id="flexSwitchCheckDefault" style="margin-top: 15px;" <?php if ($_SESSION['mode'] == "dark") { echo "checked"; } ?>>
-                                <input type='hidden' name='mode_switch' value='clicked'>
+                                <input style='float: left;' type='hidden' name='mode_switch' value='clicked'>
                             </form>
                         </li>
-                        <span style='margin-top:10px'>&#x263E;</span>
+                        <span id='icon' style='margin-top: 10px; float: left;'>&#x263E;</span>
                     </ul>
                     <?php
                         if ($env['SEARCH'] == 'on') {
